@@ -31,7 +31,7 @@ up.forEach(button => button.addEventListener("click", function(){ //listen to bu
     }
 }));
 down.forEach(button => button.addEventListener("click", function() { //listen to button click to decrease the number
-    if(this.classList[0].match(/[2..4..6]1/)) {
+    if(this.classList[0].match(/[1-9]1/)) {
         minus(this, 5);
     }
     else {
@@ -49,6 +49,8 @@ function playPause() {
 
 
 /* total */
+const hourdowntens = document.querySelector(".up01");
+const hourdownonce = document.querySelector(".up02");
 const minutedowntens = document.querySelector(".up11");
 const minutedownonce = document.querySelector(".up12");
 const seconddowntens = document.querySelector(".up21");
@@ -61,7 +63,13 @@ setInterval(function(){
             if(secondtens == 5) {
                 let minuteonce = minus(minutedownonce, 9);
                 if(minuteonce == 9) {
-                    minus(minutedowntens, 9);
+                    let minutetens = minus(minutedowntens, 5);
+                    if(minutetens == 5) {
+                        let houronce = minus(hourdownonce, 9);
+                        if(houronce == 9) {
+                            minus(hourdowntens, 9);
+                        }
+                    }
                 }
             }
         }
