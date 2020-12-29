@@ -51,7 +51,7 @@ table {
 
 .time {
     display: grid;
-    grid-template-areas: "h2 hour colon minute";
+    grid-template-areas: "h2 minute colon second";
     grid-template-columns: 1fr 1fr auto 1fr;
     margin: 1rem;
 }
@@ -63,8 +63,8 @@ h2 {
     font-size: 1.5rem;
 }
 
-.hour {
-    grid-area: hour;
+.minute {
+    grid-area: minute;
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
@@ -75,8 +75,8 @@ h2 {
     align-self: center;
 }
 
-.minute {
-    grid-area: minute;
+.second {
+    grid-area: second;
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
