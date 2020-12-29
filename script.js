@@ -1,5 +1,10 @@
+/* declaration */
 const up = document.querySelectorAll(".up"); //Get all up button
 const down = document.querySelectorAll(".down"); //Get all down button
+let productive = true;
+let play = false;
+
+/* main function */
 
 function plus(button, max) { //Increase number in clock with specific number (max)
     const change = document.querySelector(`.${button.classList[0]} + p`);
@@ -22,44 +27,8 @@ function minus(button, max) { //Decrease number in clock with specific number (m
     return change.innerHTML; //Return current number for interval
 }
 
-up.forEach(button => button.addEventListener("click", function(){ //listen to button click to increase the number
-    if(this.classList[0].match(/[1-6]1/)) {
-        plus(this, 5);
-    }
-    else {
-        plus(this, 9);
-    }
-}));
-down.forEach(button => button.addEventListener("click", function() { //listen to button click to decrease the number
-    if(this.classList[0].match(/[1-9]1/)) {
-        minus(this, 5);
-    }
-    else {
-        minus(this, 9);
-    }
-}));
-
-
-/* Play/Pause */
-let play = false;
-
-function playPause() { //button on or off
+function playPause() { //play/pause activate by play button
     play = !play;
-}
-
-/* Productive/Rest */
-let productive = true;
-
-function productiveRest() {
-    productive = !productive;
-}
-
-/* total */
-const total = document.querySelectorAll(".down");
-
-function check(button) { 
-    const change = document.querySelector(`.${button.classList[0]} + p`);
-    return change.innerHTML; 
 }
 
 function decrease(d, c, b, a, f, e) { //decreased clock (a = secondonce, b = secondtens, c = minuteonce, d = minutetens, e = houronce, f = hourtens)
@@ -88,23 +57,64 @@ function decrease(d, c, b, a, f, e) { //decreased clock (a = secondonce, b = sec
     }
 }
 
-let x = false;
+/* supporting function */
+
+function reset() { //reset when called
+    if(play) {
+        playPause();
+    }
+    down.forEach(toBeDelete => toZero(toBeDelete));
+}
+
+function toZero(time) { //replace with zero
+    const remove = document.querySelector(`.${time.classList[0]} + p`);
+    remove.innerHTML = "0";
+}
+
+function check(button) {  //check value of the clock
+    const change = document.querySelector(`.${button.classList[0]} + p`);
+    return change.innerHTML; 
+}
+
+function negation(answer, swap) { //swap boolean value
+    if(answer) {
+        swap = !swap;
+    }
+    return swap;
+}
+
+/* execution */
+
+up.forEach(button => button.addEventListener("click", function(){ //listen to button click to increase the number
+    if(this.classList[0].match(/[1-6]1/)) {
+        plus(this, 5);
+    }
+    else {
+        plus(this, 9);
+    }
+}));
+
+down.forEach(button => button.addEventListener("click", function() { //listen to button click to decrease the number
+    if(this.classList[0].match(/[1-9]1/)) {
+        minus(this, 5);
+    }
+    else {
+        minus(this, 9);
+    }
+}));
+
 setInterval(function(){
     if(play) {
-        decrease(total[2], total[3], total[4], total[5], total[0], total[1]); // decrease total clock
+        decrease(down[2], down[3], down[4], down[5], down[0], down[1]); // decrease total clock
 
         if(productive == true) {
-            x = decrease(total[6], total[7], total[8], total[9]);
-            console.log(x);
-            if(x) {
-                productive = !productive;
-            }
+            productive = negation(decrease(down[6], down[7], down[8], down[9]), productive);
         }
         else {
-            x = decrease(total[10], total[11], total[12], total[13]);
-            if(x) {
-                productive = !productive;
-            }
+            productive = negation(decrease(down[10], down[11], down[12], down[13]), productive);
         }
+        console.log(productive);
     }
 },1000);
+
+
