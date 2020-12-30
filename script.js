@@ -104,6 +104,21 @@ function getTime() { // return an array of time (productive time: 0 - 3, rest ti
     return time;
 }
 
+function setTime(time, productive) {
+    let j, to;
+    if(!productive) {
+        j = 0;
+        to = 3;
+    }
+    else {
+        j = 4;
+        to = 7;
+    }
+    for(let i = j; i <= to; i++) {
+        document.querySelector(`.${down[i + 6].classList[0]} + p`).innerHTML = time[i];
+    }
+}
+
 /* execution */
 
 up.forEach(button => button.addEventListener("click", function(){ // if up button is clicked, increase the number
@@ -145,9 +160,11 @@ setInterval(function(){ // run the code for every one second
 
         if(productive == true) { // if productive time, play productive timer
             productive = negation(decrease(down[6], down[7], down[8], down[9]), productive);
+            setTime(sequence, productive);
         }
         else { // if rest time, play rest timer 
             productive = negation(decrease(down[10], down[11], down[12], down[13]), productive);
+            setTime(sequence, productive);
         }
     }
 },1000);
