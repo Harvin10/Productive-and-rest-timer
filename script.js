@@ -103,7 +103,6 @@ function lastRoundCheck(time) { // get saved time sequence and return a new time
     answer = [];
     let tens = twoDigits(Math.floor((total - rest) / 60));
     let once = twoDigits((total - rest) % 60);
-    console.log(tens, once);
     for(let i = 0; i < 4; i++) {
         if(i < 2) {
             answer.push(tens[i]);
