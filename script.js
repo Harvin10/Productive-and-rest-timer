@@ -2,6 +2,7 @@
 const up = document.querySelectorAll(".up"); // Get all up button
 const down = document.querySelectorAll(".down"); // Get all down button
 const text = document.querySelector(".playPause"); // Get play button
+const sirenAudio = document.querySelector(".siren"); // Get siren audio
 let productive = true; // to decide when productive or rest
 let play = false; // to decide when to play or pause based on play button
 let total = false; // to decide when to play or pause based on total time
@@ -35,7 +36,7 @@ function playPause(text) { // play/pause activate by play button
         sequence = getTime();
         text.innerHTML = "Pause";
     }
-    if(text.innerHTML == "Pause") {
+    else if(text.innerHTML == "Pause") {
         text.innerHTML = "Play";
     }
     else {
@@ -196,6 +197,7 @@ setInterval(function(){ // run the code for every one second
             productive = negation(decrease(down[6], down[7], down[8], down[9]), productive);
             if(!productive) {
                 setTime(sequence, productive);
+                sirenAudio.play();
             }
         }
         else { // if rest time, play rest timer 
