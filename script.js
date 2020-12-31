@@ -45,10 +45,10 @@ function playPause(text) { // play/pause activate by play button
 }
 
 function reset() { // reset when called
-    if(play) {
-        play = negation(true, play);
-    }
+    play = false;
+    productive = true;
     down.forEach(toBeDelete => toZero(toBeDelete));
+    text.innerHTML = "Start";
 }
 
 function decrease(d, c, b, a, f, e) { // decreased clock (a = secondonce, b = secondtens, c = minuteonce, d = minutetens, e = houronce, f = hourtens)
@@ -77,6 +77,48 @@ function decrease(d, c, b, a, f, e) { // decreased clock (a = secondonce, b = se
     }
 }
 
+function setTime(time, productive) { //set time to before start time
+    let j, to;
+    if(!productive) {
+        time = lastRoundCheck(time);
+        j = 6;
+        to = 9;
+    }
+    else {
+        j = 10;
+        to = 13;
+    }
+    for(let i = j; i <= to; i++) {
+        document.querySelector(`.${down[i].classList[0]} + p`).innerHTML = time[i];
+    }
+}
+
+function lastRoundCheck(time) { // get saved time sequence and return a new time (productive time + rest time) for productive if it is the last round
+    CurrentTime = getTime();
+    const total = (parseInt(CurrentTime[2] + CurrentTime[3]) * 60) + parseInt(CurrentTime[4] + CurrentTime[5]);
+    const productive = (parseInt(time[6] + time[7]) * 60) + parseInt(time[8]+ time[9]);
+    const rest = (parseInt(time[10] + time[11]) * 60) + parseInt(time[12] + time[13]);
+
+    answer = [];
+    let tens = twoDigits(Math.floor((total - rest) / 60));
+    let once = twoDigits((total - rest) % 60);
+    for(let i = 0; i < 4; i++) {
+        if(i < 2) {
+            answer.push(tens[i]);
+        }
+        else {
+            answer.push(once[i - 2]);
+        }
+    }
+
+    if(total - rest <= productive + rest) {
+        for(let i = 2; i < 6; i++) {
+            time[i + 4] = answer[i - 2];
+        }
+    }
+    return time;
+}
+
 /* supporting function */
 
 function toZero(time) { // replace with zero (main function: reset)
@@ -98,27 +140,20 @@ function negation(answer, swap) { // swap boolean value (main function: playPaus
 
 function getTime() { // return an array of time (productive time: 0 - 3, rest time: 4 - 7 ) 
     let time = [];
-    for(let i = 0; i < 8; i++) {
-        time.push(check(down[i + 6]));
+    for(let i = 0; i < 14; i++) {
+        time.push(check(down[i]));
     }
     return time;
 }
 
-function setTime(time, productive) {
-    let j, to;
-    if(!productive) {
-        j = 0;
-        to = 3;
+function twoDigits(digit) { //get a number and convert it to two digits number
+    if(digit.toString().length == 1) {
+        return "0" + digit;
     }
     else {
-        j = 4;
-        to = 7;
-    }
-    for(let i = j; i <= to; i++) {
-        document.querySelector(`.${down[i + 6].classList[0]} + p`).innerHTML = time[i];
+        return digit;
     }
 }
-
 /* execution */
 
 up.forEach(button => button.addEventListener("click", function(){ // if up button is clicked, increase the number
@@ -148,7 +183,6 @@ setInterval(function(){ // run the code for every one second
        check(down[5]) == 0 ) {
         if(play == true) { 
             reset();
-            text.innerHTML = "Start";
         }
     }
     else {
@@ -160,11 +194,15 @@ setInterval(function(){ // run the code for every one second
 
         if(productive == true) { // if productive time, play productive timer
             productive = negation(decrease(down[6], down[7], down[8], down[9]), productive);
-            setTime(sequence, productive);
+            if(!productive) {
+                setTime(sequence, productive);
+            }
         }
         else { // if rest time, play rest timer 
             productive = negation(decrease(down[10], down[11], down[12], down[13]), productive);
-            setTime(sequence, productive);
+            if(productive) {
+                setTime(sequence, productive);
+            }
         }
     }
 },1000);
