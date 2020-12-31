@@ -8,49 +8,108 @@
 </head>
 <body>
     <div class="container">
-        <div class="name">
-            <h1>hour</h1>
-            <h1>minute</h1>
-        </div>
         <div class="total time">
-            <h2>Total</h2>
-            <div class="colon">:</div>
-            <div class="hr">
-                <input type="number" name="total-tens-hour" class="clock">
-                <input type="text" name="total-once-hour" class="clock">
+            <h2>Total:</h2>
+            <div class="hour">
+                <div class="tens">
+                    <button class="up01 clock up">up</button>
+                    <p>0</p>
+                    <button class="up01 clock down">down</button>
+                </div>
+                <div class="once">
+                    <button class="up02 clock up">up</button>
+                    <p>0</p>
+                    <button class="up02 clock down">down</button>
+                </div>
+            </div>
+            <div class="colon0">:</div>
+            <div class="minute">
+                <div class="tens">
+                    <button class="up11 clock up">up</button>
+                    <p>0</p>
+                    <button class="up11 clock down">down</button>
+                </div>
+                <div class="once">
+                    <button class="up12 clock up">up</button>
+                    <p>0</p>
+                    <button class="up12 clock down">down</button>
+                </div>
             </div>
             <div class="colon">:</div>
-            <div class="mt">
-                <input type="text" name="total-tens-minute" class="clock">
-                <input type="text" name="total-once-minute" class="clock">
+            <div class="second">
+                <div class="tens">
+                    <button class="up21 clock up">up</button>
+                    <p>0</p>
+                    <button class="up21 clock down">down</button>
+                </div>
+                <div class="once">
+                    <button class="up22 clock up">up</button>
+                    <p>0</p>
+                    <button class="up22 clock down">down</button>
+                </div>
             </div>
         </div>
         <div class="productive time">
-            <h2>Productive</h2>
-            <div class="colon">:</div>
-            <div class="hr">
-                <input type="text" name="productive-tens-hour" class="clock">
-                <input type="text" name="productive-once-hour" class="clock">
+            <h2>Productive:</h2>
+            <div class="minute">
+                <div class="tens">
+                    <button class="up31 clock up">up</button>
+                    <p>0</p>
+                    <button class="up31 clock down">down</button>
+                </div>
+                <div class="once">
+                    <button class="up32 clock up">up</button>
+                    <p>0</p>
+                    <button class="up32 clock down">down</button>
+                </div>
             </div>
             <div class="colon">:</div>
-            <div class="mt">
-                <input type="text" name="productive-tens-minute" class="clock">
-                <input type="text" name="productive-once-minute" class="clock">
+            <div class="second">
+                <div class="tens">
+                    <button class="up41 clock up">up</button>
+                    <p>0</p>
+                    <button class="up41 clock down">down</button>
+                </div>
+                <div class="once">
+                    <button class="up42 clock up">up</button>
+                    <p>0</p>
+                    <button class="up42 clock down">down</button>
+                </div>
             </div>
         </div>
         <div class="rest time">
-            <h2>Rest</h2>
-            <div class="colon">:</div>
-            <div class="hr">
-                <input type="text" name="rest-tens-hour" class="clock">
-                <input type="text" name="rest-once-hour" class="clock">
+            <h2>Rest:</h2>
+            <div class="minute">
+                <div class="tens">
+                    <button class="up51 clock up">up</button>
+                    <p>0</p>
+                    <button class="up51 clock down">down</button>
+                </div>
+                <div class="once">
+                    <button class="up52 clock up">up</button>
+                    <p>0</p>
+                    <button class="up52 clock down">down</button>
+                </div>
             </div>
             <div class="colon">:</div>
-            <div class="mt">
-                <input type="text" name="rest-tens-minute" class="clock">
-                <input type="text" name="rest-once-minute" class="clock">
+            <div class="second">
+                <div class="tens">
+                    <button class="up61 clock up">up</button>
+                    <p>0</p>
+                    <button class="up61 clock down">down</button>
+                </div>
+                <div class="once">
+                    <button class="up62 clock up">up</button>
+                    <p>0</p>
+                    <button class="up62 clock down">down</button>
+                </div>
             </div>
         </div>
+        <button class="playPause" onclick="playPause(this)">Start</button>
+        <button onclick="reset()">Reset</button>
+
+
+        <audio src="Audio/Siren.wav" class="siren"></audio>
     </div>
     <script src="script.js"></script>
 </body>
