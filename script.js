@@ -205,6 +205,7 @@ setInterval(function(){ // run the code for every one second
             productive = negation(decrease(down[10], down[11], down[12], down[13]), productive);
             if(productive) {
                 setTime(sequence, productive);
+                sirenAudio.play();
             }
         }
     }
