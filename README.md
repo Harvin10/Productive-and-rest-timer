@@ -5,3 +5,5 @@ We will have focus around 25 to 30 seconds and recharge the focus only for aroun
 
 Play/pause the timer
 Set a group of productive, rest, and total time to be saved
+
+open https://harvin10.github.io/Productive-and-rest-timer/ to try the software and give some feedback.
